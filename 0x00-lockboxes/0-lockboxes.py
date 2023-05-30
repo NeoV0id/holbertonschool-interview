@@ -1,5 +1,5 @@
 #!usr/bin/python3
-""" Determines if all boxes can be opened """
+""" Check if all boxes can be opened """
 
 def canUnlockAll(boxes):
     if boxes == None:
@@ -7,11 +7,11 @@ def canUnlockAll(boxes):
 
     unlocked = [0]
 
-    for key in unlocked:
-        for k in boxes[key]:
-            if k not in unlocked:
-                if k < len(boxes):
-                    unlocked.append(k)
+    for keys in unlocked:
+        for key in boxes[keys]:
+            if key not in unlocked:
+                if key < len(boxes):
+                    unlocked.append(key)
 
 
     if len(unlocked) == len(boxes):
