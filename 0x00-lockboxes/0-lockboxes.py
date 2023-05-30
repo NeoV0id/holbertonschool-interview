@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """ Check if all boxes can be opened """
 
 def canUnlockAll(boxes):
