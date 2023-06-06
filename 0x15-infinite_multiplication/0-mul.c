@@ -22,14 +22,14 @@ int int_casting(char *charnum)
     for (i = 0; charnum[i] != '\0'; i++)
     {
         num = charnum[i] - '0';
-        for (j = strlen(charnum - 1); charnum[j] != charnum[i]; --j)
+        for (j = strlen(charnum - 1); charnum[j] != charnum[i]; j--)
         {
             num = num * pow;
             pow = pow * 10;
         }
         intnum += num;
     }
-    return intnum;
+    return (intnum);
 }
 
 /**
@@ -42,7 +42,7 @@ int int_casting(char *charnum)
 
 int mul (int a, int b)
 {
-    return a * b;
+    return (a * b);
 }
 
 /**
@@ -59,9 +59,9 @@ int checker(char *argv)
     for (i = 0; argv[i] != '\0'; i++)
     {
         if ((argv[i] < 48) || (argv[i] > 57))
-            return -1;
+            return (-1);
     }
-    return 0;
+    return (0);
 
 }
 
@@ -110,6 +110,6 @@ int main(int argc, char **argv)
     b = int_casting(argv[2]);
     resmul = mul(a, b);
     printf("%d\n", resmul);
-    return 0;
+    return (0);
 
 }
