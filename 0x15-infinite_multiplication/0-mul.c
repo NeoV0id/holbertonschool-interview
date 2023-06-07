@@ -6,7 +6,7 @@
 #include "holberton.h"
 
 /**
- *int_casting - cast char to int
+ * int_casting - cast char to int
  * @charnum: char number to cast
  *
  * Return: the actual number
@@ -17,13 +17,13 @@ int int_casting(char *charnum)
 	int i, j;
 	int intnum, num, pow;
 
-	pow = 1;
 	intnum = 0;
 
 	for (i = 0; charnum[i] != '\0'; i++)
 	{
 		num = charnum[i] - '0';
-		for (j = strlen(charnum - 1); charnum[j] != charnum[i]; j--)
+		pow = 1;
+		for (j = strlen(charnum - 1); j >= i; j--)
 		{
 			num = num * pow;
 			pow = pow * 10;
