@@ -14,22 +14,23 @@
 
 int int_casting(char *charnum)
 {
-    int i, j;
-    int intnum, num, pow;
-    pow = 1;
-    intnum = 0;
+	int i, j;
+	int intnum, num, pow;
 
-    for (i = 0; charnum[i] != '\0'; i++)
-    {
-        num = charnum[i] - '0';
-        for (j = strlen(charnum - 1); charnum[j] != charnum[i]; j--)
-        {
-            num = num * pow;
-            pow = pow * 10;
-        }
-        intnum += num;
-    }
-    return (intnum);
+	pow = 1;
+	intnum = 0;
+
+	for (i = 0; charnum[i] != '\0'; i++)
+	{
+		num = charnum[i] - '0';
+		for (j = strlen(charnum - 1); charnum[j] != charnum[i]; j--)
+		{
+			num = num * pow;
+			pow = pow * 10;
+		}
+		intnum += num;
+	}
+	return (intnum);
 }
 
 /**
@@ -40,9 +41,9 @@ int int_casting(char *charnum)
  * Return: result
  */
 
-int mul (int a, int b)
+int mul(int a, int b)
 {
-    return (a * b);
+	return (a * b);
 }
 
 /**
@@ -54,15 +55,14 @@ int mul (int a, int b)
 
 int checker(char *argv)
 {
-    int i;
+	int i;
 
-    for (i = 0; argv[i] != '\0'; i++)
-    {
-        if ((argv[i] < 48) || (argv[i] > 57))
-            return (-1);
-    }
-    return (0);
-
+	for (i = 0; argv[i] != '\0'; i++)
+	{
+		if ((argv[i] < 48) || (argv[i] > 57))
+			return (-1);
+	}
+	return (0);
 }
 
 /**
@@ -74,11 +74,10 @@ int checker(char *argv)
 
 void _putstr(char *str)
 {
-    unsigned int i;
+	unsigned int i;
 
-    for (i = 0; i < strlen(str); i++)
-        _putchar(str[i]);
-    return;
+	for (i = 0; i < strlen(str); i++)
+		_putchar(str[i]);
 }
 
 /**
@@ -91,25 +90,25 @@ void _putstr(char *str)
 
 int main(int argc, char **argv)
 {
-    char *error = "Error";
-    int a, b, resmul;
+	char *error = "Error";
+	int a, b, resmul;
 
-    if (argc < 3 || argc > 3)
-    {
-        _putstr(error);
-        _putchar('\n');
-        exit(98);
-    }
-    if (checker(argv[1]) != 0 || checker(argv[2]) != 0)
-    {
-        _putstr(error);
-        _putchar('\n');
-        exit(98);
-    }
-    a = int_casting(argv[1]);
-    b = int_casting(argv[2]);
-    resmul = mul(a, b);
-    printf("%d\n", resmul);
-    return (0);
+	if (argc < 3 || argc > 3)
+	{
+		_putstr(error);
+		_putchar('\n');
+		exit(98);
+	}
 
+	if (checker(argv[1]) != 0 || checker(argv[2]) != 0)
+	{
+		_putstr(error);
+		_putchar('\n');
+		exit(98);
+	}
+	a = int_casting(argv[1]);
+	b = int_casting(argv[2]);
+	resmul = mul(a, b);
+	printf("%d\n", resmul);
+	return (0);
 }
