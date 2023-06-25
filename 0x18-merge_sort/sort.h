@@ -4,7 +4,7 @@
 /* Prototype */
 void merge_sort(int *array, size_t size);
 void print_array(const int *array, size_t size);
-void mergeSort(int *array, size_t index, size_t size);
-void merge(int *arr, int index, int mid, int last);
+void merge_sort_holder(int *array, size_t size, int *holder);
+void merge(int *holder, int *array, int mid, size_t size);
 
 #endif /*__SORT_H__*/

@@ -3,89 +3,98 @@
 #include "sort.h"
 
 /**
- * merge_sort - sort and print an array
+ * merge_sort - sorts an array of ints using top-down merge sort algorithm
  *
- * @array: array to check
- * @size: size of the array
+ * @array: array of integers to sort
+ * @size: size of the array of integers to sort
  *
  * Return: nothing
  */
+
 void merge_sort(int *array, size_t size)
 {
-	mergeSort(array, 0, size);
-	print_array(array, size);
-}
+	int *holder = malloc(sizeof(int) * size);
 
-/**
- * mergeSort - sort and merge an array
- *
- * @array: array to check
- * @index: index to start
- * @size: size of the array
- *
- * Return: nothing
- */
-void mergeSort(int *array, size_t index, size_t size)
-{
-	size_t mid = size / 2;
-
-	mergeSort(array, index, mid);
-	mergeSort(array, mid + 1, size);
-	merge(array, index, mid, size);
-}
-
-/**
- * merge - merge an array
- *
- * @arr: array to check
- * @index: index to start
- * @mid: middle of the array
- * @last: last index aka size
- *
- * Return: nothing
- */
-void merge(int *arr, int index, int mid, int last)
-{
-	int i, j, k;
-	int n1 = mid - index + 1;
-	int n2 = last - mid;
-	int *R = arr;
-	int *L = arr;
-
-	for (i = 0; i < n1; i++)
-		L[i] = arr[last + i];
-	for (j = 0; j < n2; j++)
-		R[j] = arr[mid + 1 + j];
-
-	i = 0;
-	j = 0;
-	k = index;
-	while (i < n1 && j < n2)
+	if (holder == NULL)
+		return;
+	if (size <= 1 || array == NULL)
 	{
-		if (L[i] <= R[j])
+		free(holder);
+		return;
+	}
+	merge_sort_holder(array, size, holder);
+	free(holder);
+}
+
+/**
+ * merge_sort_holder - sorts array of ints with top-down merge sort algorithm
+ *
+ * @array: array of integers to sort
+ * @size: size of the array of integers to sort
+ * @holder: temp array to hold information during merge
+ *
+ * Return: nothing
+ */
+
+void merge_sort_holder(int *array, size_t size, int *holder)
+{
+	int mid = size / 2;
+
+	if (size <= 1)
+		return;
+
+	merge_sort_holder(array, mid, holder);
+	merge_sort_holder(&array[mid], size - mid, holder);
+	merge(holder, array, mid, size);
+}
+
+/**
+ * merge - merges two subarrays together
+ *
+ * @holder: temp array to hold information during merge
+ * @array: array to merge
+ * @mid: index of mid-point
+ * @size: size of array to merge
+ *
+ * Return: nothing
+ */
+
+void merge(int *holder, int *array, int mid, size_t size)
+{
+	int left = 0, right = mid, index = 0;
+
+	printf("Merging...\n[left]: ");
+	print_array(array, mid);
+	printf("[right]: ");
+	print_array(&array[mid], size - mid);
+	while (left < mid && right < (int)size)
+	{
+		if (array[left] <= array[right])
 		{
-			arr[k] = L[i];
-			i++;
+			holder[index] = array[left];
+			left++;
 		}
 		else
 		{
-			arr[k] = R[j];
-			j++;
+			holder[index] = array[right];
+			right++;
 		}
-		k++;
+		index++;
 	}
-
-	while (i < n1)
+	while (left < mid)
 	{
-		arr[k] = L[i];
-		i++;
-		k++;
+		holder[index] = array[left];
+		left++;
+		index++;
 	}
-	while (j < n2)
+	while (right < (int)size)
 	{
-		arr[k] = R[j];
-		j++;
-		k++;
+		holder[index] = array[right];
+		right++;
+		index++;
 	}
+	for (index = 0; index < (int)size; index++)
+		array[index] = holder[index];
+	printf("[Done]: ");
+	print_array(array, size);
 }
-
