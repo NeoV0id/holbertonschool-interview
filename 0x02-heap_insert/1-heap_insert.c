@@ -1,7 +1,108 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "binary_trees.h"
 
+/**
+ * check_left - check left part of the tree
+ * @root: root of tree to check
+ *
+ * Return: NULL on failure or index of available node
+ */
+heap_t *check_left(heap_t **root)
+{
+	heap_t *tmp;
+
+	tmp = malloc(sizeof(heap_t));
+	if (tmp == NULL)
+		return (NULL);
+
+	tmp = *root;
+	while (tmp)
+	{
+		if (tmp->right == NULL)
+			return (tmp);
+		if (tmp->left == NULL)
+			return (tmp);
+		tmp = tmp->left;
+	}
+	return (NULL);
+}
+
+/**
+ * check_right - check right part of the tree
+ * @root: root of tree to check
+ *
+ * Return: NULL on failure, index of available node
+ */
+heap_t *check_right(heap_t **root)
+{
+	heap_t *tmp;
+
+	tmp = malloc(sizeof(heap_t));
+	if (tmp == NULL)
+		return (NULL);
+
+	tmp = *root;
+	while (tmp->left != NULL)
+	{
+		if (tmp->right == NULL)
+			return (tmp);
+		tmp = tmp->right;
+	}
+	return (NULL);
+}
+
+/**
+ * swap - swap nodes according to max heap tree
+ *
+ * @root: root of tree to check
+ * @node: node to swap
+ *
+ * Return: NULL on failure, swapped tree on success
+ */
+heap_t *swap(heap_t **root, heap_t *node)
+{
+	heap_t *tmp, *ttmp;
+
+	tmp = malloc(sizeof(heap_t));
+	if (tmp == NULL)
+		return (NULL);
+
+	ttmp = malloc(sizeof(heap_t));
+	if (ttmp == NULL)
+		return (NULL);
+
+	tmp = *root;
+	while (tmp)
+	{
+		while (node->n < tmp->n)
+		{
+			if ((tmp->parent == NULL) && (tmp->n < node->n))
+			{
+				tmp->parent = node->parent;
+				node->left = tmp->left;
+				node->right = tmp->right;
+				tmp->left = NULL;
+				tmp->right = NULL;
+				node->parent = NULL;
+				*root = node;
+			}
+			else if (tmp->n < node->n)
+			{
+				ttmp = tmp->parent;
+				tmp->parent = node->parent;
+				node->left = tmp->left;
+				node->right = tmp->right;
+				node->parent = ttmp;
+				tmp->left = NULL;
+				tmp->right = NULL;
+			}
+		}
+		tmp = tmp->left;
+	}
+	return (NULL);
+}
 /**
  * heap_insert - insert a node according to its value
  * @root: tree on which insert the node
@@ -12,38 +113,39 @@
 
 heap_t *heap_insert(heap_t **root, int value)
 {
-    binary_tree_t *new, *tmp;
+	heap_t *tmp, *ttmp, *new;
 
-    tmp = malloc(sizeof(binary_tree_t));
-    if (tmp == NULL)
-        return NULL;
+	tmp = malloc(sizeof(heap_t));
+	if (tmp == NULL)
+		return (NULL);
 
-    tmp = *root;
+	ttmp = malloc(sizeof(heap_t));
+	if (ttmp == NULL)
+		return (NULL);
 
-    if (tmp == NULL)
-    {
-        new = binary_tree_node(NULL, value);
-        *root = new;
-        return *root;
-    }
+	new = malloc(sizeof(heap_t));
+	if (new == NULL)
+		return (NULL);
 
-    new = binary_tree_node(tmp, value);
-    while ((tmp->left != NULL) && (tmp->right != NULL))
-    {    
-        if (new->n >= tmp->n)
-        {
-            if (tmp->parent == NULL)
-                tmp = new;
-            new->parent = tmp->parent;
-            new->left = tmp;
-            return *root;
-        }
-        else if ((new->n < tmp->n) && (tmp->left == NULL))
-        {
-            tmp->left = new;
-            return *root;
-        }
-        tmp = tmp->left;
-    }
-    return NULL;
+	tmp = *root;
+	new->n = value;
+
+	while (tmp)
+	{
+		if (check_left(root) != NULL)
+		{
+			ttmp = check_left(root);
+			ttmp->left = new;
+			swap(root, new);
+			return (new);
+		}
+		else if (check_right(root) != NULL)
+		{
+			ttmp = check_right(root);
+			ttmp->right = new;
+			swap(root, new);
+			return (new);
+		}
+	}
+	return (NULL);
 }
