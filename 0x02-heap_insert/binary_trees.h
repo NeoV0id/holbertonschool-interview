@@ -28,6 +28,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 heap_t *heap_insert(heap_t **root, int value);
 heap_t *check_left(heap_t **root);
 heap_t *check_right(heap_t **root);
-heap_t *swap(heap_t **root, heap_t *node);
+void swap(heap_t **root, heap_t *node);
+int tree_height(const binary_tree_t *tree);
 
 #endif /*__BINARY_TREES_H__*/
