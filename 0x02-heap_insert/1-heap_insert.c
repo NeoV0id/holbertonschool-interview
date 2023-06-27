@@ -136,16 +136,19 @@ heap_t *heap_insert(heap_t **root, int value)
 		{
 			ttmp = check_left(root);
 			ttmp->left = new;
-			swap(root, new);
+			if (new->n > tmp->n)
+				swap(root, new);
 			return (new);
 		}
 		else if (check_right(root) != NULL)
 		{
 			ttmp = check_right(root);
 			ttmp->right = new;
-			swap(root, new);
+			if (new->n > tmp->n)
+				swap(root, new);
 			return (new);
 		}
+		tmp = tmp->left;
 	}
 	return (NULL);
 }
