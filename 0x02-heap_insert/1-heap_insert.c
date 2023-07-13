@@ -4,27 +4,6 @@
 #include "binary_trees.h"
 
 /**
- * tree_height - measures the height of a tree
- * @tree: tree root
- * Return: height
- */
-int tree_height(const binary_tree_t *tree)
-{
-	int left = 0, right = 0;
-
-	if (tree == NULL)
-		return (-1);
-
-	left = tree_height(tree->left);
-	right = tree_height(tree->right);
-
-	if (left > right)
-		return (left + 1);
-
-	return (right + 1);
-}
-
-/**
  * check_left - check left part of the tree
  * @root: root of tree to check
  *
@@ -150,32 +129,25 @@ heap_t *heap_insert(heap_t **root, int value)
 
 	tmp = *root;
 	new->n = value;
-	heightl = tree_height(tmp->left);
-	heightr = tree_height(tmp->right);
 
 	while (tmp)
 	{
-		if (heightl <= heightr)
+		if (check_left(root) != NULL)
 		{
-			if (check_left(root) != NULL)
-			{
-				ttmp = check_left(root);
-				ttmp->left = new;
-				if (new->n > tmp->n)
-					swap(root, new);
-				return (new);
-			}
+			ttmp = check_left(root);
+			ttmp->left = new;
+			if (new->n > tmp->n)
+				swap(root, new);
+			return (new);
 		}
-		else
+	}
+		if (check_right(root) != NULL)
 		{
-			if (check_right(root) != NULL)
-			{
-				ttmp = check_right(root);
-				ttmp->right = new;
-				if (new->n > tmp->n)
-					swap(root, new);
-				return (new);
-			}
+			ttmp = check_right(root);
+			ttmp->right = new;
+			if (new->n > tmp->n)
+				swap(root, new);
+			return (new);
 		}
 		tmp = tmp->left;
 	}
