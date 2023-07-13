@@ -50,7 +50,8 @@ List *add_node_end(List **list, char *str)
 	}
 
 	tmp = *list;
- 	while (tmp->next != *list)
+
+	while (tmp->next != *list)
 	{
 		if (tmp->next->next == *list)
 		{
@@ -79,7 +80,7 @@ List *add_node_begin(List **list, char *str)
 	List *new, *tmp;
 
 	tmp = create_node(NULL);
-	new = create_node (str);
+	new = create_node(str);
 
 	if (list == NULL)
 	{
