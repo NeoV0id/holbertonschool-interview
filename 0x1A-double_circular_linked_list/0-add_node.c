@@ -29,6 +29,7 @@ int _lenstr(char *str)
 char *_strcpy(char *str)
 {
 	char *new;
+	int i;
 
 	new = malloc(sizeof(char) * _lenstr(str) + 1);
 	if (new == NULL)
