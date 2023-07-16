@@ -4,6 +4,42 @@
 #include <string.h>
 
 /**
+ * _lenstr - count length of str
+ *
+ * @str: string to count
+ *
+ * Return: length
+ */
+int _lenstr(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+/**
+ * _strspy - copy string
+ *
+ * @str: string to copy
+ *
+ * Return: copied string
+ */
+char *_strcpy(char *str)
+{
+	char *new;
+
+	new = malloc(sizeof(char) * _lenstr(str) + 1);
+	if (new == NULL)
+		return (NULL);
+
+	for (i = 0; str[i]; i++)
+		new[i] = str[i];
+	new[i] = '\0';
+	return (new);
+}
+/**
  * create_node - create a new_node
  *
  * @str: content of the created node
@@ -21,7 +57,7 @@ List *create_node(char *str)
 	if (str == NULL)
 		new_node->str = NULL;
 	else
-		new_node->str = strdup(str);
+		new_node->str = _strcpy(str);
 	new_node->prev = NULL;
 	new_node->next = NULL;
 
